@@ -16,16 +16,12 @@ const (
 )
 
 var (
-	allLangs = []string{hindiLang, englishLang}
-
-	httpClient = &http.Client{
-		Timeout: 10 * time.Second,
-	}
+	httpClient = &http.Client{Timeout: 10 * time.Second}
 )
 
 func getTTContent() ([]videoMeta, error) {
 	var videoList []videoMeta
-	for _, lang := range allLangs {
+	for _, lang := range []string{hindiLang, englishLang} {
 		videos, err := getContentForLang(lang)
 		if err != nil {
 			return nil, err
@@ -77,6 +73,7 @@ func getContentForLang(lang string) ([]videoMeta, error) {
 		}
 
 		videoList = append(videoList, videoMeta{
+			VideoID:       video.MediaUUID,
 			Name:          video.Name,
 			VideoDuration: time.Duration(video.DurationSec) * time.Second,
 			Language:      video.SourceLanguage,

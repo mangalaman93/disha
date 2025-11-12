@@ -4,30 +4,52 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 )
 
 const (
 	cacheFile = "cache.json"
 )
 
-func ensureCache() error {
-	// TODO: if file is 24 hours old, delete it and hit APIs again
-	if _, err := os.Stat(cacheFile); err == nil {
-		fmt.Println("cache file already exists, no need to hit APIs")
-		return nil
-	} else if !os.IsNotExist(err) {
-		return fmt.Errorf("error checking for cache file: %w", err)
+var (
+	cache videoCache
+)
+
+type videoCache struct {
+	Videos      map[string]videoMeta `json:"videos"`
+	LastUpdated time.Time            `json:"lastUpdated"`
+}
+
+func (c *videoCache) set(video videoMeta) {
+	c.Videos[video.VideoID] = video
+}
+
+func (c *videoCache) get(id string) (videoMeta, bool) {
+	video, ok := c.Videos[id]
+	return video, ok
+}
+
+func (c *videoCache) load() error {
+	data, err := os.ReadFile(cacheFile)
+	if err != nil {
+		return fmt.Errorf("error reading cache file [%v]: %w", cacheFile, err)
 	}
 
-	videos, err := getTTContent()
-	if err != nil {
-		return fmt.Errorf("error getting video list from TT: %w", err)
+	if err := json.Unmarshal(data, c); err != nil {
+		return fmt.Errorf("error unmarshalling cache file [%v]: %w", cacheFile, err)
 	}
-	fmt.Println("total videos retrieved from TT:", len(videos))
 
-	data, err := json.MarshalIndent(videos, "", "  ")
+	if c.LastUpdated.Add(time.Hour * 24).Before(time.Now()) {
+		return c.download()
+	}
+
+	return nil
+}
+
+func (c *videoCache) save() error {
+	data, err := json.MarshalIndent(c, "", "  ")
 	if err != nil {
-		return fmt.Errorf("error marshalling video list from TT: %w", err)
+		return fmt.Errorf("error marshalling cache: %w", err)
 	}
 
 	if err := os.WriteFile(cacheFile, data, 0644); err != nil {
@@ -37,16 +59,41 @@ func ensureCache() error {
 	return nil
 }
 
-func readFromCache() ([]videoMeta, error) {
-	data, err := os.ReadFile(cacheFile)
+func (c *videoCache) download() error {
+	videosFromYouTube, err := getYouTubeContent()
 	if err != nil {
-		return nil, fmt.Errorf("error reading cache file: %w", err)
+		return fmt.Errorf("error getting video list from YouTube: %w", err)
+	}
+	fmt.Println("total videos retrieved from YouTube:", len(videosFromYouTube))
+
+	videosFromTT, err := getTTContent()
+	if err != nil {
+		return fmt.Errorf("error getting video list from TT: %w", err)
+	}
+	fmt.Println("total videos retrieved from TT:", len(videosFromTT))
+
+	if c.Videos == nil {
+		c.Videos = make(map[string]videoMeta)
+	} else {
+		clear(c.Videos)
 	}
 
-	var videoList []videoMeta
-	if err := json.Unmarshal(data, &videoList); err != nil {
-		return nil, fmt.Errorf("error unmarshalling cache file: %w", err)
+	for _, video := range append(videosFromTT, videosFromYouTube...) {
+		c.set(video)
 	}
+	c.LastUpdated = time.Now()
 
-	return videoList, nil
+	return c.save()
+}
+
+func (c *videoCache) setup() error {
+	if _, err := os.Stat(cacheFile); err == nil {
+		fmt.Println("cache file already exists, no need to hit APIs")
+		return c.load()
+	} else if !os.IsNotExist(err) {
+		return fmt.Errorf("error checking for cache file: %w", err)
+	} else {
+		fmt.Println("cache file does not exist, downloading")
+		return c.download()
+	}
 }
