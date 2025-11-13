@@ -13,7 +13,7 @@ const (
 	ttHandle  = "@TimelessToday"
 	prHandle  = "@PremRawatOfficial"
 
-	youTubeAPIKey     = "" // TODO: add it!
+	youTubeAPIKey     = "AIzaSyALeuqiITT-mIt0zaZUoch1OLYpcy4xaww" // TODO: hide it!
 	youTubeVideoURL   = "https://www.youtube.com/watch?v=%v"
 	baseYouTubeAPIURL = "https://www.googleapis.com/youtube/v3"
 	playlistURL       = baseYouTubeAPIURL + "/channels?part=contentDetails&forHandle=%v&key=%v"
