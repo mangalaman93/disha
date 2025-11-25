@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"log"
 	"sort"
 	"strings"
 	"time"
@@ -54,10 +54,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("total filtered videos latest to oldest:", len(filteredVideos))
+	log.Println("total filtered videos latest to oldest:", len(filteredVideos))
 
 	for _, video := range filteredVideos {
-		fmt.Printf("[%v] in [%v-%v] of [%v]: %v\n", video.Name, video.PublishMonth,
+		log.Printf("[%v] in [%v-%v] of [%v]: %v\n", video.Name, video.PublishMonth,
 			video.PublishYear, video.VideoDuration, video.ClickURL)
 	}
 }

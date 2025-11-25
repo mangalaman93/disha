@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"time"
 )
@@ -40,6 +41,7 @@ func (c *videoCache) load() error {
 	}
 
 	if c.LastUpdated.Add(time.Hour * 24).Before(time.Now()) {
+		log.Println("cache is old, downloading")
 		return c.download()
 	}
 
@@ -64,13 +66,13 @@ func (c *videoCache) download() error {
 	if err != nil {
 		return fmt.Errorf("error getting video list from YouTube: %w", err)
 	}
-	fmt.Println("total videos retrieved from YouTube:", len(videosFromYouTube))
+	log.Println("total videos retrieved from YouTube:", len(videosFromYouTube))
 
 	videosFromTT, err := getTTContent()
 	if err != nil {
 		return fmt.Errorf("error getting video list from TT: %w", err)
 	}
-	fmt.Println("total videos retrieved from TT:", len(videosFromTT))
+	log.Println("total videos retrieved from TT:", len(videosFromTT))
 
 	if c.Videos == nil {
 		c.Videos = make(map[string]videoMeta)
@@ -88,12 +90,12 @@ func (c *videoCache) download() error {
 
 func (c *videoCache) setup() error {
 	if _, err := os.Stat(cacheFile); err == nil {
-		fmt.Println("cache file already exists, no need to hit APIs")
+		log.Println("cache file already exists, no need to hit APIs")
 		return c.load()
 	} else if !os.IsNotExist(err) {
 		return fmt.Errorf("error checking for cache file: %w", err)
 	} else {
-		fmt.Println("cache file does not exist, downloading")
+		log.Println("cache file does not exist, downloading")
 		return c.download()
 	}
 }

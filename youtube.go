@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -24,7 +25,7 @@ const (
 func getYouTubeContent() ([]videoMeta, error) {
 	var videos []videoMeta
 	for _, handle := range []string{rvkHandle, ttHandle, prHandle} {
-		fmt.Printf("getting videos from handle: [%v]\n", handle)
+		log.Printf("getting videos from handle: [%v]\n", handle)
 
 		playlistID, err := getPlaylistID(handle)
 		if err != nil {
@@ -78,7 +79,7 @@ func getVideosFromPlaylist(playlistID string) ([]videoMeta, error) {
 	pageNo := 0
 	for {
 		pageNo++
-		fmt.Printf("getting page [%v] of videos from playlist [%v], nextPageToken: [%v]\n",
+		log.Printf("getting page [%v] of videos from playlist [%v], nextPageToken: [%v]\n",
 			pageNo, playlistID, nextPageToken)
 
 		resp, err := httpClient.Get(fmt.Sprintf(videoListURL, playlistID, youTubeAPIKey, nextPageToken))

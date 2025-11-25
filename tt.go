@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 )
@@ -33,7 +34,7 @@ func getTTContent() ([]videoMeta, error) {
 }
 
 func getContentForLang(lang string) ([]videoMeta, error) {
-	fmt.Println("getting video list for lang:", lang)
+	log.Println("getting video list for lang:", lang)
 
 	req, err := http.NewRequest("GET", fmt.Sprintf(ttListContentURL, lang), nil)
 	if err != nil {
