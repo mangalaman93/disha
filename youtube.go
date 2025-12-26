@@ -11,9 +11,10 @@ import (
 )
 
 const (
-	rvkHandle = "@rajvidyakender"
-	ttHandle  = "@TimelessToday"
-	prHandle  = "@PremRawatOfficial"
+	rvkHandle  = "@rajvidyakender"
+	ttHandle   = "@TimelessToday"
+	prHandle   = "@PremRawatOfficial"
+	wopgHandle = "@wopgyt"
 
 	youTubeVideoURL   = "https://www.youtube.com/watch?v=%v"
 	baseYouTubeAPIURL = "https://www.googleapis.com/youtube/v3"
@@ -22,9 +23,13 @@ const (
 	videoMetaURL      = baseYouTubeAPIURL + "/videos?part=snippet,contentDetails&id=%v&key=%v"
 )
 
+var (
+	allYtHandles = []string{wopgHandle, prHandle, rvkHandle, ttHandle}
+)
+
 func getYouTubeContent() ([]videoMeta, error) {
 	var videos []videoMeta
-	for _, handle := range []string{rvkHandle, ttHandle, prHandle} {
+	for _, handle := range allYtHandles {
 		log.Printf("getting videos from handle: [%v]\n", handle)
 
 		playlistID, err := getPlaylistID(handle)
@@ -142,6 +147,10 @@ func getVideosFromPlaylist(playlistID string) ([]videoMeta, error) {
 				return nil, err
 			}
 
+			if duration == 0 || (audioLang != "hi-IN" && audioLang != "en-US") {
+				continue
+			}
+
 			videos = append(videos, videoMeta{
 				VideoID:       item.Snippet.ResourceID.VideoID,
 				Name:          item.Snippet.Title,
@@ -206,21 +215,28 @@ func getMetaForYouTubeVideo(videoID string) (string, time.Duration, error) {
 }
 
 func parseDuration(duration string) (time.Duration, error) {
+	if duration == "P0D" {
+		return 0, nil
+	}
+
 	return time.ParseDuration(strings.ToLower(duration[2:]))
 }
 
 func langTT(lang, title string) string {
 	titleHasHindi := containsHindi(title)
+	if titleHasHindi {
+		return "hi-IN"
+	}
 
 	switch lang {
 	case "hi", "hi-IN":
 		return "hi-IN"
 
-	default:
-		if titleHasHindi {
-			return "hi-IN"
-		}
+	case "en-GB", "en-US", "en":
 		return "en-US"
+
+	default:
+		return lang
 	}
 }
 

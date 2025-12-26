@@ -22,6 +22,7 @@ var (
 
 func getTTContent() ([]videoMeta, error) {
 	var videoList []videoMeta
+
 	for _, lang := range []string{hindiLang, englishLang} {
 		videos, err := getContentForLang(lang)
 		if err != nil {
