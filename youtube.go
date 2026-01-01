@@ -111,6 +111,7 @@ func getVideosFromPlaylist(playlistID string) ([]videoMeta, error) {
 			Items         []struct {
 				Snippet struct {
 					Title       string `json:"title"`
+					Description string `json:"description"`
 					PublishedAt string `json:"publishedAt"`
 					Thumbnails  struct {
 						Medium struct {
@@ -154,6 +155,7 @@ func getVideosFromPlaylist(playlistID string) ([]videoMeta, error) {
 			videos = append(videos, videoMeta{
 				VideoID:       item.Snippet.ResourceID.VideoID,
 				Name:          item.Snippet.Title,
+				Description:   item.Snippet.Description,
 				VideoDuration: duration,
 				Language:      audioLang,
 				ClickURL:      fmt.Sprintf(youTubeVideoURL, item.Snippet.ResourceID.VideoID),

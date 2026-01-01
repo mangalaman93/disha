@@ -11,6 +11,7 @@ import (
 type videoMeta struct {
 	VideoID       string
 	Name          string
+	Description   string
 	VideoDuration time.Duration
 	Language      string
 	ClickURL      string

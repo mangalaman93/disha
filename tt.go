@@ -59,6 +59,7 @@ func getContentForLang(lang string) ([]videoMeta, error) {
 	var respstruct struct {
 		Data []struct {
 			Name           string `json:"tt_name"`
+			Description    string `json:"tt_write_up"`
 			DurationSec    int    `json:"tt_duration"`
 			SourceLanguage string `json:"tt_source_language"`
 			MediaUUID      string `json:"tt_media_uuid"`
@@ -81,6 +82,7 @@ func getContentForLang(lang string) ([]videoMeta, error) {
 		videoList = append(videoList, videoMeta{
 			VideoID:       video.MediaUUID,
 			Name:          video.Name,
+			Description:   video.Description,
 			VideoDuration: time.Duration(video.DurationSec) * time.Second,
 			Language:      video.SourceLanguage,
 			ClickURL:      getClickURL(video.MediaUUID, video.SourceLanguage),
