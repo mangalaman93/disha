@@ -13,7 +13,7 @@ func customizeCache(cache *videoCache) {
 	toEnglish := []string{"UXV4hcudGo0", "1FVPtXv2pWU"}
 	for _, videoID := range toEnglish {
 		if video, exists := cache.get(videoID); exists {
-			video.Language = "en"
+			video.Language = englishLang
 			cache.set(video)
 			log.Printf("Updated video %s language to %s", video.VideoID, video.Language)
 		}
