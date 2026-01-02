@@ -85,6 +85,7 @@ func (c *videoCache) download() error {
 	}
 	c.LastUpdated = time.Now()
 
+	customizeCache(c)
 	return c.save()
 }
 
