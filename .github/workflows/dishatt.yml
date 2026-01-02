@@ -1,0 +1,56 @@
+name: Update Cache and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 */2 * *'
+  workflow_dispatch:
+
+jobs:
+  update-and-deploy:
+    name: Update Cache and Deploy to DishaTT
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.25'
+          cache: true
+          cache-dependency-path: go.sum
+
+      - name: Build disha
+        run: go build -o disha .
+
+      - name: Run cache update
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: ./disha --update
+
+      - name: Check out dishatt repository
+        uses: actions/checkout@v6
+        with:
+          repository: mangalaman93/dishatt
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: dishatt
+
+      - name: Copy updated cache to dishatt
+        run: cp cache.json dishatt/public/data/
+
+      - name: Commit and push to dishatt
+        working-directory: dishatt
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add public/data/cache.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update cache.json - $(date '+%Y-%m-%d %H:%M:%S UTC')"
+            git push
+          fi
