@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"time"
 )
 
 // customizeCache applies manual corrections to cached video data after it has
@@ -18,6 +19,21 @@ func customizeCache(cache *videoCache) {
 			log.Printf("Updated video %s language to %s", video.VideoID, video.Language)
 		}
 	}
+
+	// Add AajTak video
+	video := videoMeta{
+		VideoID: "01vCqZoMnyE",
+		Name:    "Sahitya Aaj Tak 2025: स्वयं से साक्षात्कार | Prem Rawat | Sahitya Aaj Tak | Aaj Tak",
+		Description: "दिल्ली की गुलाबी सर्दी के बीच मेजर ध्यानचंद स्टेडियम में आजतक के बेहद चर्चित कार्यक्रम साहित्य आजतक 2025 का आगाज हो चुका है." +
+			"शुक्रवार को कार्यक्रम के पहले दिन न्यूयॉर्क टाइम्स के बेस्टसेलर लेखकों में शुमार प्रेम रावत ने आज की भागती-दौड़ती जिंदगी में शांति और आनंद का मतलब समझाया.",
+		VideoDuration: time.Minute*43 + time.Second*49,
+		Language:      hindiLang,
+		ClickURL:      "https://www.youtube.com/watch?v=01vCqZoMnyE",
+		PublishYear:   2025,
+		PublishMonth:  time.November,
+		ThumbnailURL:  "https://i.ytimg.com/vi/01vCqZoMnyE/hq720.jpg",
+	}
+	cache.set(video)
 
 	// Delete videos from the cache.
 	// Example: remove videos older than a certain date
