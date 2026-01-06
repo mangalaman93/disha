@@ -18,6 +18,7 @@ type videoMeta struct {
 	PublishYear   int
 	PublishMonth  time.Month
 	ThumbnailURL  string
+	AudioOnly     bool
 }
 
 type filterParam struct {

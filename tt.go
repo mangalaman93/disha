@@ -65,6 +65,7 @@ func getContentForLang(lang string) ([]videoMeta, error) {
 			MediaUUID      string `json:"tt_media_uuid"`
 			PublishDate    string `json:"tt_publishing_date"`
 			ThumbnailURL   string `json:"tt_image_url"`
+			AudioOnly      string `json:"tt_item_type"`
 		} `json:"data"`
 	}
 
@@ -89,6 +90,7 @@ func getContentForLang(lang string) ([]videoMeta, error) {
 			PublishYear:   publishTs.Year(),
 			PublishMonth:  publishTs.Month(),
 			ThumbnailURL:  video.ThumbnailURL,
+			AudioOnly:     video.AudioOnly == "audio_only",
 		})
 	}
 

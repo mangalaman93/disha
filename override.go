@@ -32,6 +32,7 @@ func customizeCache(cache *videoCache) {
 		PublishYear:   2025,
 		PublishMonth:  time.November,
 		ThumbnailURL:  "https://i.ytimg.com/vi/01vCqZoMnyE/hq720.jpg",
+		AudioOnly:     false,
 	}
 	cache.set(video)
 

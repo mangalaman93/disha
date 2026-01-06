@@ -162,6 +162,7 @@ func getVideosFromPlaylist(playlistID string) ([]videoMeta, error) {
 				PublishYear:   publishTs.Year(),
 				PublishMonth:  publishTs.Month(),
 				ThumbnailURL:  item.Snippet.Thumbnails.Medium.URL,
+				AudioOnly:     false,
 			})
 		}
 
