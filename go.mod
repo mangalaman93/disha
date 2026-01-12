@@ -1,6 +1,6 @@
-module github.com/mangalaman93/disha
+module github.com/tech-for-peace/disha
 
-go 1.25.3
+go 1.25
 
 require github.com/PuerkitoBio/goquery v1.11.0
 
