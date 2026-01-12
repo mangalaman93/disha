@@ -161,6 +161,7 @@ func getVideosFromPlaylist(playlistID string) ([]videoMeta, error) {
 				ClickURL:      fmt.Sprintf(youTubeVideoURL, item.Snippet.ResourceID.VideoID),
 				PublishYear:   publishTs.Year(),
 				PublishMonth:  publishTs.Month(),
+				PublishDay:    publishTs.Day(),
 				ThumbnailURL:  item.Snippet.Thumbnails.Medium.URL,
 				AudioOnly:     false,
 			})

@@ -89,6 +89,7 @@ func getContentForLang(lang string) ([]videoMeta, error) {
 			ClickURL:      getClickURL(video.MediaUUID, video.SourceLanguage),
 			PublishYear:   publishTs.Year(),
 			PublishMonth:  publishTs.Month(),
+			PublishDay:    publishTs.Day(),
 			ThumbnailURL:  video.ThumbnailURL,
 			AudioOnly:     video.AudioOnly == "audio_only",
 		})
