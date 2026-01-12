@@ -33,7 +33,7 @@ jobs:
       - name: Check out dishatt repository
         uses: actions/checkout@v6
         with:
-          repository: mangalaman93/dishatt
+          repository: tech-for-peace/dishatt
           token: ${{ secrets.DISHATT_PAT }}
           path: dishatt
 
