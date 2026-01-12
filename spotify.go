@@ -85,6 +85,7 @@ func parseEpisode(s *goquery.Selection) (*videoMeta, error) {
 		ClickURL:      "https://open.spotify.com/episode/" + videoID,
 		PublishYear:   publishedAt.Year(),
 		PublishMonth:  publishedAt.Month(),
+		PublishDay:    publishedAt.Day(),
 		ThumbnailURL:  thumbnailURL,
 		AudioOnly:     true,
 	}, nil

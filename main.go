@@ -17,6 +17,7 @@ type videoMeta struct {
 	ClickURL      string
 	PublishYear   int
 	PublishMonth  time.Month
+	PublishDay    int
 	ThumbnailURL  string
 	AudioOnly     bool
 }

@@ -33,6 +33,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=01vCqZoMnyE",
 		PublishYear:   2025,
 		PublishMonth:  time.November,
+		PublishDay:    21,
 		ThumbnailURL:  "https://i.ytimg.com/vi/01vCqZoMnyE/hq720.jpg",
 		AudioOnly:     false,
 	})
@@ -48,6 +49,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=_J_KLm4kj-Y",
 		PublishYear:   2025,
 		PublishMonth:  time.March,
+		PublishDay:    4,
 		ThumbnailURL:  "https://i.ytimg.com/vi/_J_KLm4kj-Y/hq720.jpg",
 		AudioOnly:     false,
 	})
@@ -62,6 +64,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=JW9W31HLiH0",
 		PublishYear:   2025,
 		PublishMonth:  time.February,
+		PublishDay:    23,
 		ThumbnailURL:  "https://i.ytimg.com/vi/JW9W31HLiH0/hq720.jpg",
 		AudioOnly:     false,
 	})
@@ -78,6 +81,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=bLzvopaMLwk",
 		PublishYear:   2022,
 		PublishMonth:  time.October,
+		PublishDay:    22,
 		ThumbnailURL:  "https://i.ytimg.com/vi/bLzvopaMLwk/hqdefault.jpg",
 		AudioOnly:     false,
 	})
@@ -92,6 +96,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=djd5THkx7Hs",
 		PublishYear:   2023,
 		PublishMonth:  time.April,
+		PublishDay:    1,
 		ThumbnailURL:  "https://i.ytimg.com/vi/djd5THkx7Hs/hq720.jpg",
 		AudioOnly:     false,
 	})
@@ -106,6 +111,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=tMe7_9GSXEM",
 		PublishYear:   2018,
 		PublishMonth:  time.November,
+		PublishDay:    2,
 		ThumbnailURL:  "https://i.ytimg.com/vi/tMe7_9GSXEM/hqdefault.jpg",
 		AudioOnly:     false,
 	})
@@ -120,6 +126,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=zCuKz6M-hTo",
 		PublishYear:   2025,
 		PublishMonth:  time.April,
+		PublishDay:    13,
 		ThumbnailURL:  "https://i.ytimg.com/vi/zCuKz6M-hTo/hq720.jpg",
 		AudioOnly:     false,
 	})
@@ -134,6 +141,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=-vyRZwCsn9I",
 		PublishYear:   2022,
 		PublishMonth:  time.March,
+		PublishDay:    9,
 		ThumbnailURL:  "https://i.ytimg.com/vi/-vyRZwCsn9I/hq720.jpg",
 		AudioOnly:     false,
 	})
@@ -148,6 +156,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=4TVaZCbEpWs",
 		PublishYear:   2023,
 		PublishMonth:  time.May,
+		PublishDay:    28,
 		ThumbnailURL:  "https://i.ytimg.com/vi/4TVaZCbEpWs/hq720.jpg",
 		AudioOnly:     false,
 	})
@@ -162,6 +171,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=4xN4SDjbpjI",
 		PublishYear:   2023,
 		PublishMonth:  time.July,
+		PublishDay:    25,
 		ThumbnailURL:  "https://i.ytimg.com/vi/4xN4SDjbpjI/hq720.jpg",
 		AudioOnly:     true,
 	})
@@ -176,6 +186,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=MBnMKUE8bFo",
 		PublishYear:   2017,
 		PublishMonth:  time.November,
+		PublishDay:    24,
 		ThumbnailURL:  "https://i.ytimg.com/vi/MBnMKUE8bFo/hq720.jpg",
 		AudioOnly:     false,
 	})
@@ -198,6 +209,7 @@ func customizeCache(cache *videoCache) error {
 		ClickURL:      "https://www.youtube.com/watch?v=k845byCwFWg",
 		PublishYear:   2022,
 		PublishMonth:  time.May,
+		PublishDay:    30,
 		ThumbnailURL:  "https://i.ytimg.com/vi/k845byCwFWg/hq720.jpg",
 		AudioOnly:     false,
 	})
