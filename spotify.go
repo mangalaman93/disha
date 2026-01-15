@@ -14,6 +14,7 @@ import (
 //go:embed data/spotify.html
 var spotifyHTML []byte
 var sentenceBoundary = regexp.MustCompile(`([.!?])([A-Z])`)
+var spotifyPublishDate = time.Date(2026, time.January, 15, 0, 0, 0, 0, time.UTC)
 
 // customizeSpotifyCache adds Spotify podcast episodes to the cache
 func customizeSpotifyCache(cache *videoCache) error {
@@ -121,11 +122,10 @@ func extractBestThumbnail(s *goquery.Selection) string {
 }
 func parseDate(s string) (time.Time, error) {
 	s = strings.TrimSpace(s)
-	now := time.Now()
 
 	// 1. Handle weekday names (e.g. "Tuesday")
 	if wd, ok := parseWeekday(s); ok {
-		return mostRecentWeekday(now, wd), nil
+		return mostRecentWeekday(spotifyPublishDate, wd), nil
 	}
 
 	// 2. Absolute date formats
