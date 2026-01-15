@@ -132,10 +132,15 @@ func parseDate(s string) (time.Time, error) {
 	layouts := []string{
 		"Jan 2, 2006",
 		"Jan 2006",
+		"Jan 2",
 	}
 
 	for _, l := range layouts {
 		if t, err := time.Parse(l, s); err == nil {
+			if t.Year() == 0 {
+				t = t.AddDate(spotifyPublishDate.Year(), 0, 0)
+			}
+
 			return t, nil
 		}
 	}
